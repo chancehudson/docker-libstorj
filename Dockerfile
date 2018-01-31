@@ -21,7 +21,7 @@ RUN apk add --no-cache \
   json-c-dev \
   libuv-dev
 
-RUN git clone https://github.com/Storj/libstorj.git
+RUN git clone -b 1.0.0 https://github.com/Storj/libstorj.git
 
 WORKDIR /root/libstorj
 

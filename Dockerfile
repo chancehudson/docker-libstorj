@@ -6,7 +6,6 @@ ENV TMPDIR=/tmp
 
 # Build dependencies, removed after build
 RUN apk add --no-cache --virtual .build-deps \
-  libtool \
   automake \
   make \
   git \
@@ -15,6 +14,7 @@ RUN apk add --no-cache --virtual .build-deps \
 
 # Runtime dependencies
 RUN apk add --no-cache \
+  libtool \
   libmicrohttpd-dev \
   curl-dev \
   nettle-dev \
@@ -28,12 +28,12 @@ WORKDIR /root/libstorj
 RUN ./autogen.sh && \
   ./configure && \
   make && \
-  ./test/tests && \
-  make install
+  make install && \
+  apk del .build-deps && \
+  ./test/tests
 
 WORKDIR /
 
-RUN rm -rf /root/libstorj && \
-  apk del .build-deps
+RUN rm -rf /root/libstorj
 
 CMD ["/usr/local/bin/storj"]

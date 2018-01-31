@@ -4,7 +4,7 @@ MAINTAINER Chance Hudson
 WORKDIR /root
 ENV TMPDIR=/tmp
 
-RUN apk add --no-cache \
+RUN apk add --no-cache --virtual .build-deps \
   libtool \
   automake \
   libmicrohttpd-dev \
@@ -28,7 +28,8 @@ RUN ./autogen.sh && \
 
 WORKDIR /
 
-RUN rm -rf /root/libstorj
-
-CMD ["/bin/ash"]
+RUN rm -rf /root/libstorj && \
+  apk del .build-deps
+  
+CMD ["/usr/local/bin/storj"]
   

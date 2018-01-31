@@ -3,7 +3,7 @@
 [![Docker Build Status](https://img.shields.io/docker/build/jchancehud/libstorj.svg)](https://hub.docker.com/r/jchancehud/libstorj/)
 [![Storj.io](https://storj.io/img/storj-badge.svg)](https://storj.io)
 
-[jchancehud/libstorj](https://hub.docker.com/r/jchancehud/libstorj/) is a docker image with the [libstorj](https://github.com/Storj/libstorj) executable on top of alpine linux.
+[jchancehud/libstorj](https://hub.docker.com/r/jchancehud/libstorj/) is a docker image with the [libstorj](https://github.com/Storj/libstorj) executable built and tested on top of alpine linux.
 
 Use the `1.0.0` tag if you want to peg the release.
 

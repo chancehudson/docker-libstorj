@@ -1,6 +1,7 @@
 # docker-libstorj
 
 [![Docker Build Status](https://img.shields.io/docker/build/jchancehud/libstorj.svg)](https://hub.docker.com/r/jchancehud/libstorj/)
+[![Storj.io](https://storj.io/img/storj-badge.svg)](https://storj.io)
 
 This is a prebuilt docker image including the compiled [libstorj](https://github.com/Storj/libstorj) executable.
 

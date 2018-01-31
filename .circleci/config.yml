@@ -1,15 +1,9 @@
-machine:
-  services:
-    - docker
-
-dependencies:
-  override:
-    - docker info
-    - docker build --rm=false -t jchancehud/libstorj .
-
-deployment:
-  hub:
-    branch: master
-    commands:
-      - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push jchancehud/libstorj
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - run: docker build . -t jchancehud/libstorj: latest
+      - run: docker push jchancehud/libstorj:latest

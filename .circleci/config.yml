@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - checkout
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - run: docker build . -t jchancehud/libstorj:latest
+      - run: docker push jchancehud/libstorj:latest
+  build_nonmaster:
+    machine: true
+    steps:
+      - checkout
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - run: docker build . -t jchancehud/libstorj:$CIRCLE_BRANCH
+      - run: docker push jchancehud/libstorj:$CIRCLE_BRANCH
+
+workflows:
+  version: 2
+  build_all:
+    jobs:
+      - build:
+          filters:
+            branches:
+              only:
+                - master
+      - build_nonmaster:
+          filters:
+            branches:
+              ignore: master

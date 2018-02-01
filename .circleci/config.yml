@@ -1,9 +1,14 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    context: org-global
+    steps:
+      - checkout
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD && docker build . -t jchancehud/libstorj:latest
+
 workflows:
   version: 2
-  jobs:
-    build:
-      machine: true
-      context: org-global
-      steps:
-        - checkout
-        - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD && docker build . -t jchancehud/libstorj:latest
+  deploy:
+    jobs:
+      - build

@@ -17,15 +17,13 @@ jobs:
 
 workflows:
   version: 2
-  build_latest:
+  build_all:
     jobs:
       - build:
           filters:
             branches:
               only:
                 - master
-  build_nonmaster:
-    jobs:
       - build_nonmaster:
         filters:
           branches:

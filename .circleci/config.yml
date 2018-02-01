@@ -24,8 +24,4 @@ workflows:
             branches:
               only:
                 - master
-      - build_nonmaster:
-        filters:
-          branches:
-            ignore:
-              - master
+      - build_nonmaster

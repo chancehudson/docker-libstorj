@@ -29,7 +29,7 @@ RUN ./autogen.sh && \
   ./configure && \
   make && \
   make install && \
-  apk del .build-deps && \
+  #apk del .build-deps && \
   ./test/tests
 
 WORKDIR /

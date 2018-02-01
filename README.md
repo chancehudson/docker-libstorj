@@ -1,6 +1,6 @@
 # docker-libstorj
 
-[![Docker Build Status](https://img.shields.io/docker/build/jchancehud/libstorj.svg)](https://hub.docker.com/r/jchancehud/libstorj/)
+[![CircleCI branch](https://img.shields.io/circleci/project/github/JChanceHud/docker-libstorj/master.svg)](https://circleci.com/gh/JChanceHud/docker-libstorj)
 [![Storj.io](https://storj.io/img/storj-badge.svg)](https://storj.io)
 
 [jchancehud/libstorj](https://hub.docker.com/r/jchancehud/libstorj/) is a docker image with the [libstorj](https://github.com/Storj/libstorj) executable built and tested on top of alpine linux.

@@ -2,6 +2,7 @@ version: 2
 jobs:
   build:
     machine: true
+    context: org-global
     steps:
       - checkout
       - run: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"

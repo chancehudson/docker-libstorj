@@ -6,3 +6,4 @@ jobs:
       - checkout
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - run: docker build . -t jchancehud/libstorj:latest
+      - run: docker push jchancehud/libstorj:latest

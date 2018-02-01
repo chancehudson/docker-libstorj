@@ -4,4 +4,5 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD && docker build . -t jchancehud/libstorj:latest
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+      - run: docker build . -t jchancehud/libstorj:latest

@@ -2,7 +2,7 @@ FROM ubuntu:latest
 MAINTAINER Chance Hudson
 
 WORKDIR /root
-# ENV TMPDIR=/tmp
+ENV TMPDIR=/tmp
 
 # Build dependencies, can be removed
 RUN apt-get update && \

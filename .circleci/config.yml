@@ -7,10 +7,7 @@ jobs:
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - run: docker build . -t jchancehud/libstorj:latest
       - run: docker push jchancehud/libstorj:latest
-      - run: |
-        cd ubuntu
-        docker build . -t jchancehud/libstorj:ubuntu
-        docker push jchancehud/libstorj:ubuntu
+      - run: cd ubuntu && docker build . -t jchancehud/libstorj:ubuntu && docker push jchancehud/libstorj:ubuntu
   build_nonmaster:
     machine: true
     steps:
@@ -18,10 +15,7 @@ jobs:
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
       - run: docker build . -t jchancehud/libstorj:$CIRCLE_BRANCH
       - run: docker push jchancehud/libstorj:$CIRCLE_BRANCH
-      - run: |
-        cd ubuntu
-        docker build . -t jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH
-        docker push jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH
+      - run: cd ubuntu && docker build . -t jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH && docker push jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH
 
 workflows:
   version: 2

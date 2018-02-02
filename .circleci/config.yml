@@ -1,3 +1,10 @@
+alpine: &alpineCommand |
+  docker build . -t jchancehud/libstorj:latest
+  docker push jchancehud/libstorj:latest
+ubuntu: &ubuntuCommand |
+  cd ubuntu
+  docker build . -t jchancehud/libstorj:ubuntu
+  docker push jchancehud/libstorj:ubuntu
 version: 2
 jobs:
   build:
@@ -5,13 +12,8 @@ jobs:
     steps:
       - checkout
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - run:
-        docker build . -t jchancehud/libstorj:latest &&
-        docker push jchancehud/libstorj:latest
-      - run:
-        cd ubuntu &&
-        docker build . -t jchancehud/libstorj:ubuntu &&
-        docker push jchancehud/libstorj:ubuntu
+      - run: *alpineCommand
+      - run: *ubuntuCommand
   build_nonmaster:
     machine: true
     steps:

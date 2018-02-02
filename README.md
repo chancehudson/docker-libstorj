@@ -12,12 +12,6 @@
 - [jchancehud/libstorj:ubuntu](https://github.com/JChanceHud/docker-libstorj/blob/master/ubuntu/Dockerfile) - 202 MB
 - [jchancehud/libstorj:ubuntu-1.0.0](https://github.com/JChanceHud/docker-libstorj/blob/1.0.0/ubuntu/Dockerfile) - 202 MB
 
-## Usage
-
-This image is primarily intended for use inside docker swarms to provide a persistent storage that can be authenticated by environment variables provided at runtime as [secrets](https://docs.docker.com/engine/swarm/secrets/).
-
-Configurations for various services (mongo, redis, custom servers) can be stored securely in storj and accessed at runtime via authentication stored in the network in a custom entrypoint script.
-
 ## Command line use
 
 This docker image can be used to play with the storj executable without installing onto your local machine.
@@ -28,10 +22,11 @@ docker run --rm jchancehud/libstorj storj --help
 
 ### Interactive shell
 
-To enter an interactive shell invoke `/bin/ash` as the command.
+To enter an interactive shell invoke `ash` (the default alpine shell) as the command with the `-it` flags. The `--rm` flag destroys the container after exit.
 
 ```
-docker run -it --rm jchancehud/libstorj /bin/ash
+docker run -it --rm jchancehud/libstorj ash
+/ #
 ```
 
 Now you have a shell into a virtual machine with the `storj` executable in the path.
@@ -75,4 +70,35 @@ environment variables:
   STORJ_BRIDGE_USER         bridge username
   STORJ_BRIDGE_PASS         bridge password
   STORJ_ENCRYPTION_KEY      file encryption key
+```
+
+## Swarm Use
+
+This image can be used inside docker swarms to provide a persistent storage that can be authenticated by secure variables provided at runtime as [secrets](https://docs.docker.com/engine/swarm/secrets/) at `/run/secrets/`.
+
+Configurations for various services (mongo, redis, custom servers) can be stored securely in storj and accessed at runtime via authentication stored in the network in a custom entrypoint script.
+
+Example `entrypoint.sh` that securely retrieves an environment file for a nodejs server.
+
+`CONFIG_BUCKET_ID` and `CONFIG_FILE_ID` are supplied as environment variables to download the file from storj. These parameters are less sensitive as they don't contain authentication information.
+
+```
+#! /bin/sh
+
+# Secrets are configured at the swarm level and are provided via files at /run/secrets
+# See the docker secrets documentation for more information
+# https://docs.docker.com/engine/swarm/secrets/
+SECRETS=/run/secrets/
+
+# Load libstorj env config options if they are present
+[ -f $SECRETS/STORJ_KEYPASS ] && STORJ_KEYPASS=$(cat $SECRETS/STORJ_KEYPASS)
+[ -f $SECRETS/STORJ_BRIDGE ] && STORJ_BRIDGE=$(cat $SECRETS/STORJ_BRIDGE) # This defaults to https://api.storj.io
+[ -f $SECRETS/STORJ_BRIDGE_USER ] && STORJ_BRIDGE_USER=$(cat $SECRETS/STORJ_BRIDGE_USER)
+[ -f $SECRETS/STORJ_BRIDGE_PASS ] && STORJ_BRIDGE_PASS=$(cat $SECRETS/STORJ_BRIDGE_PASS)
+[ -f $SECRETS/STORJ_ENCRYPTION_KEY ] && STORJ_ENCRYPTION_KEY=$(cat $SECRETS/STORJ_ENCRYPTION_KEY)
+
+# Assuming this is a node server that is retrieving a .env file with authentication info
+storj download-file $CONFIG_BUCKET_ID $CONFIG_FILE_ID ./.env
+
+exec npm start
 ```

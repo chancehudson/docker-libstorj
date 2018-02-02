@@ -80,7 +80,7 @@ Configurations for various services (mongo, redis, custom servers) can be stored
 
 Example `entrypoint.sh` that securely retrieves an environment file for a nodejs server.
 
-`CONFIG_BUCKET_ID` and `CONFIG_FILE_ID` are supplied as environment variables to download the file from storj. These parameters are less sensitive as they don't contain authentication information.
+`DOTENV_BUCKET_ID` and `DOTENV_FILE_ID` are supplied as environment variables to download the file from storj. These parameters are less sensitive as they don't contain authentication information.
 
 ```
 #! /bin/sh
@@ -98,7 +98,7 @@ SECRETS=/run/secrets/
 [ -f $SECRETS/STORJ_ENCRYPTION_KEY ] && STORJ_ENCRYPTION_KEY=$(cat $SECRETS/STORJ_ENCRYPTION_KEY)
 
 # Assuming this is a node server that is retrieving a .env file with authentication info
-storj download-file $CONFIG_BUCKET_ID $CONFIG_FILE_ID ./.env
+storj download-file $DOTENV_BUCKET_ID $DOTENV_FILE_ID ./.env
 
 exec npm start
 ```

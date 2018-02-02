@@ -12,9 +12,6 @@
 - [jchancehud/libstorj:ubuntu](https://github.com/JChanceHud/docker-libstorj/blob/master/ubuntu/Dockerfile) - 202 MB
 - [jchancehud/libstorj:ubuntu-1.0.0](https://github.com/JChanceHud/docker-libstorj/blob/1.0.0/ubuntu/Dockerfile) - 202 MB
 
-linux
-Use the `1.0.0` tag if you want to peg the release.
-
 ## Usage
 
 This image is primarily intended for use inside docker swarms to provide a persistent storage that can be authenticated by environment variables provided at runtime as [secrets](https://docs.docker.com/engine/swarm/secrets/).

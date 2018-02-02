@@ -38,11 +38,13 @@ workflows:
   build_all:
     jobs:
       - build:
+          context: org-global
           filters:
             branches:
               only:
                 - master
       - build_nonmaster:
+          context: org-global
           filters:
             branches:
               ignore: master

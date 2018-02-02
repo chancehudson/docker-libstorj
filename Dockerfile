@@ -10,18 +10,16 @@ RUN apk add --no-cache --virtual .build-deps \
   make \
   git \
   autoconf \
-  g++
-
-# Runtime dependencies
-RUN apk add --no-cache \
+  g++ \
+  && \
+  apk add --no-cache \
   libtool \
   libmicrohttpd-dev \
   curl-dev \
   nettle-dev \
   json-c-dev \
-  libuv-dev
-
-RUN git clone https://github.com/Storj/libstorj.git
+  libuv-dev && \
+  git clone https://github.com/Storj/libstorj.git
 
 WORKDIR /root/libstorj
 

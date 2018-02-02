@@ -3,8 +3,16 @@
 [![CircleCI branch](https://img.shields.io/circleci/project/github/JChanceHud/docker-libstorj/master.svg)](https://circleci.com/gh/JChanceHud/docker-libstorj)
 [![Storj.io](https://storj.io/img/storj-badge.svg)](https://storj.io)
 
-[jchancehud/libstorj](https://hub.docker.com/r/jchancehud/libstorj/) is a docker image with the [libstorj](https://github.com/Storj/libstorj) executable built and tested on top of alpine linux.
+[jchancehud/libstorj](https://hub.docker.com/r/jchancehud/libstorj/) is a docker image with the [libstorj](https://github.com/Storj/libstorj) executable built, tested and installed.
 
+## Available tags
+
+- [jchancehud/libstorj:latest](https://github.com/JChanceHud/docker-libstorj/blob/master/Dockerfile) - built on alpine linux - 90 MB
+- [jchancehud/libstorj:1.0.0](https://github.com/JChanceHud/docker-libstorj/blob/1.0.0/Dockerfile) - the [libstorj 1.0.0 release](https://github.com/Storj/libstorj/tree/1.0.0) built on alpine - 90 MB
+- [jchancehud/libstorj:ubuntu](https://github.com/JChanceHud/docker-libstorj/blob/master/ubuntu/Dockerfile) - 202 MB
+- [jchancehud/libstorj:ubuntu-1.0.0](https://github.com/JChanceHud/docker-libstorj/blob/1.0.0/ubuntu/Dockerfile) - 202 MB
+
+linux
 Use the `1.0.0` tag if you want to peg the release.
 
 ## Usage

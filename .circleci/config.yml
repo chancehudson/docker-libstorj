@@ -1,10 +1,22 @@
-alpine: &alpineCommand |
+# multiline build commands should be put here to avoid a bug with multine
+# strings in lists
+alpine_master: &AlpineMaster |
   docker build . -t jchancehud/libstorj:latest
   docker push jchancehud/libstorj:latest
-ubuntu: &ubuntuCommand |
+ubuntu_master: &UbuntuMaster |
   cd ubuntu
   docker build . -t jchancehud/libstorj:ubuntu
   docker push jchancehud/libstorj:ubuntu
+
+alpine_nonmaster: &AlpineNonmaster |
+  docker build . -t jchancehud/libstorj:$CIRCLE_BRANCH
+  docker push jchancehud/libstorj:$CIRCLE_BRANCH
+ubuntu_nonmaster: &UbuntuNonmaster |
+  cd ubuntu
+  docker build . -t jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH
+  docker push jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH
+
+# circleci config
 version: 2
 jobs:
   build:
@@ -12,17 +24,15 @@ jobs:
     steps:
       - checkout
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - run: *alpineCommand
-      - run: *ubuntuCommand
+      - run: *AlpineMaster
+      - run: *UbuntuMaster
   build_nonmaster:
     machine: true
     steps:
       - checkout
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - run: docker build . -t jchancehud/libstorj:$CIRCLE_BRANCH
-      - run: docker push jchancehud/libstorj:$CIRCLE_BRANCH
-      - run: cd ubuntu && docker build . -t jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH && docker push jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH
-
+      - run: *AlpineNonmaster
+      - run: *UbuntuNonmaster
 workflows:
   version: 2
   build_all:

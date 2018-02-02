@@ -24,7 +24,7 @@ RUN ./autogen.sh && \
   make && \
   make install && \
   apt-get remove -y $BUILD_DEPS && \
-  apt-get autoremove && \
+  apt-get autoremove -y && \
   ./test/tests
 
 WORKDIR /

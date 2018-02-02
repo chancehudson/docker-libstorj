@@ -24,7 +24,7 @@ RUN apt-get install -y \
   libjson-c-dev \
   libuv1-dev
 
-RUN git clone https://github.com/Storj/libstorj.git
+RUN git clone -b 1.0.0 https://github.com/Storj/libstorj.git
 
 WORKDIR /root/libstorj
 

@@ -4,10 +4,14 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
-      - run: docker build . -t jchancehud/libstorj:latest
-      - run: docker push jchancehud/libstorj:latest
-      - run: cd ubuntu && docker build . -t jchancehud/libstorj:ubuntu && docker push jchancehud/libstorj:ubuntu
+      - run:
+        - docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        - docker build . -t jchancehud/libstorj:latest
+        - docker push jchancehud/libstorj:latest
+      - run:
+        - cd ubuntu
+        - docker build . -t jchancehud/libstorj:ubuntu
+        - docker push jchancehud/libstorj:ubuntu
   build_nonmaster:
     machine: true
     steps:

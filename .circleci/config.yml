@@ -4,13 +4,11 @@ boot: &Boot |
   docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
   export DOCKER_REPO=jchancehud/libstorj
 
-alpine_master: &AlpineMaster |
-  *Boot
+alpine_master: &AlpineMaster *Boot |
   cd alpine
   docker build . -t $DOCKER_REPO:alpine
   docker push $DOCKER_REPO:alpine
-ubuntu_master: &UbuntuMaster |
-  *Boot
+ubuntu_master: &UbuntuMaster *Boot |
   cd ubuntu
   docker build . -t $DOCKER_REPO:ubuntu
   docker push $DOCKER_REPO:ubuntu
@@ -18,13 +16,11 @@ ubuntu_master: &UbuntuMaster |
   docker tag $DOCKER_REPO:ubuntu $DOCKER_REPO:latest
   docker push $DOCKER_REPO:latest
 
-alpine_nonmaster: &AlpineNonmaster |
-  *Boot
+alpine_nonmaster: &AlpineNonmaster *Boot |
   cd alpine
   docker build . -t $DOCKER_REPO:alpine-$CIRCLE_BRANCH
   docker push $DOCKER_REPO:alpine-$CIRCLE_BRANCH
-ubuntu_nonmaster: &UbuntuNonmaster |
-  *Boot
+ubuntu_nonmaster: &UbuntuNonmaster *Boot |
   cd ubuntu
   docker build . -t $DOCKER_REPO:ubuntu-$CIRCLE_BRANCH
   docker push $DOCKER_REPO:ubuntu-$CIRCLE_BRANCH

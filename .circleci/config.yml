@@ -1,16 +1,20 @@
 # multiline build commands should be put here to avoid a bug with multine
 # strings in lists
 alpine_master: &AlpineMaster |
-  docker build . -t jchancehud/libstorj:latest
-  docker push jchancehud/libstorj:latest
+  cd alpine
+  docker build . -t jchancehud/libstorj:alpine
+  docker push jchancehud/libstorj:alpine
 ubuntu_master: &UbuntuMaster |
   cd ubuntu
   docker build . -t jchancehud/libstorj:ubuntu
   docker push jchancehud/libstorj:ubuntu
+  docker tag jchancehud/libstorj:ubuntu jchanehud/libstorj:latest
+  docker push jchancehud/libstorj:latest
 
 alpine_nonmaster: &AlpineNonmaster |
-  docker build . -t jchancehud/libstorj:$CIRCLE_BRANCH
-  docker push jchancehud/libstorj:$CIRCLE_BRANCH
+  cd alpine
+  docker build . -t jchancehud/libstorj:alpine-$CIRCLE_BRANCH
+  docker push jchancehud/libstorj:alpine-$CIRCLE_BRANCH
 ubuntu_nonmaster: &UbuntuNonmaster |
   cd ubuntu
   docker build . -t jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH

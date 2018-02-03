@@ -7,10 +7,11 @@
 
 ## Available tags
 
-- [jchancehud/libstorj:latest](https://github.com/JChanceHud/docker-libstorj/blob/master/Dockerfile) - libstorj on ubuntu - 202 MB
-- [jchancehud/libstorj:1.0.0](https://github.com/JChanceHud/docker-libstorj/blob/1.0.0/Dockerfile) - the [libstorj 1.0.0 release](https://github.com/Storj/libstorj/tree/1.0.0) built on alpine - 89 MB
+- [jchancehud/libstorj:latest](https://github.com/JChanceHud/docker-libstorj/blob/master/ubuntu/Dockerfile) - libstorj on ubuntu
 - [jchancehud/libstorj:ubuntu](https://github.com/JChanceHud/docker-libstorj/blob/master/ubuntu/Dockerfile) - 202 MB
 - [jchancehud/libstorj:ubuntu-1.0.0](https://github.com/JChanceHud/docker-libstorj/blob/1.0.0/ubuntu/Dockerfile) - 201 MB
+- [jchancehud/libstorj:alpine](https://github.com/JChanceHud/docker-libstorj/blob/master/alpine/Dockerfile) - libstorj on alpine - currently unstable, some commands do not work - 89 MB
+- [jchancehud/libstorj:alpine-1.0.0](https://github.com/JChanceHud/docker-libstorj/blob/master/alpine/Dockerfile) - libstorj 1.0.0 on alpine - 90 MB
 
 ## Command line use
 

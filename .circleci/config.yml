@@ -1,24 +1,28 @@
 # multiline build commands should be put here to avoid a bug with multine
 # strings in lists
+boot: &Boot |
+  docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+  export DOCKER_REPO=jchancehud/libstorj
+
 alpine_master: &AlpineMaster |
   cd alpine
-  docker build . -t jchancehud/libstorj:alpine
-  docker push jchancehud/libstorj:alpine
+  docker build . -t $DOCKER_REPO:alpine
+  docker push $DOCKER_REPO:alpine
 ubuntu_master: &UbuntuMaster |
   cd ubuntu
-  docker build . -t jchancehud/libstorj:ubuntu
-  docker push jchancehud/libstorj:ubuntu
-  docker tag jchancehud/libstorj:ubuntu jchanehud/libstorj:latest
-  docker push jchancehud/libstorj:latest
+  docker build . -t $DOCKER_REPO:ubuntu
+  docker push $DOCKER_REPO:ubuntu
+  docker tag $DOCKER_REPO:ubuntu $DOCKER_REPO:latest
+  docker push $DOCKER_REPO:latest
 
 alpine_nonmaster: &AlpineNonmaster |
   cd alpine
-  docker build . -t jchancehud/libstorj:alpine-$CIRCLE_BRANCH
-  docker push jchancehud/libstorj:alpine-$CIRCLE_BRANCH
+  docker build . -t $DOCKER_REPO:alpine-$CIRCLE_BRANCH
+  docker push $DOCKER_REPO:alpine-$CIRCLE_BRANCH
 ubuntu_nonmaster: &UbuntuNonmaster |
   cd ubuntu
-  docker build . -t jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH
-  docker push jchancehud/libstorj:ubuntu-$CIRCLE_BRANCH
+  docker build . -t $DOCKER_REPO:ubuntu-$CIRCLE_BRANCH
+  docker push $DOCKER_REPO:ubuntu-$CIRCLE_BRANCH
 
 # circleci config
 version: 2
@@ -27,14 +31,14 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+      - run: *Boot
       - run: *AlpineMaster
       - run: *UbuntuMaster
   build_nonmaster:
     machine: true
     steps:
       - checkout
-      - run: docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+      - run: *Boot
       - run: *AlpineNonmaster
       - run: *UbuntuNonmaster
 workflows:

@@ -1,14 +1,17 @@
+machine:
+  environment:
+    DOCKER_REPO: jchancehud/libstorj
+
 # multiline build commands should be put here to avoid a bug with multine
 # strings in lists
 boot: &Boot |
   docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
-  export DOCKER_REPO=jchancehud/libstorj
 
-alpine_master: &AlpineMaster *Boot |
+alpine_master: &AlpineMaster |
   cd alpine
   docker build . -t $DOCKER_REPO:alpine
   docker push $DOCKER_REPO:alpine
-ubuntu_master: &UbuntuMaster *Boot |
+ubuntu_master: &UbuntuMaster |
   cd ubuntu
   docker build . -t $DOCKER_REPO:ubuntu
   docker push $DOCKER_REPO:ubuntu
@@ -16,11 +19,11 @@ ubuntu_master: &UbuntuMaster *Boot |
   docker tag $DOCKER_REPO:ubuntu $DOCKER_REPO:latest
   docker push $DOCKER_REPO:latest
 
-alpine_nonmaster: &AlpineNonmaster *Boot |
+alpine_nonmaster: &AlpineNonmaster |
   cd alpine
   docker build . -t $DOCKER_REPO:alpine-$CIRCLE_BRANCH
   docker push $DOCKER_REPO:alpine-$CIRCLE_BRANCH
-ubuntu_nonmaster: &UbuntuNonmaster *Boot |
+ubuntu_nonmaster: &UbuntuNonmaster |
   cd ubuntu
   docker build . -t $DOCKER_REPO:ubuntu-$CIRCLE_BRANCH
   docker push $DOCKER_REPO:ubuntu-$CIRCLE_BRANCH
@@ -32,12 +35,14 @@ jobs:
     machine: true
     steps:
       - checkout
+      - run: *Boot
       - run: *AlpineMaster
       - run: *UbuntuMaster
   build_nonmaster:
     machine: true
     steps:
       - checkout
+      - run: *Boot
       - run: *AlpineNonmaster
       - run: *UbuntuNonmaster
 workflows:

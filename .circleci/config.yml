@@ -1,11 +1,8 @@
-machine:
-  environment:
-    DOCKER_REPO: jchancehud/libstorj
-
 # multiline build commands should be put here to avoid a bug with multine
 # strings in lists
 boot: &Boot |
   docker login -u "$DOCKER_USER" -p "$DOCKER_PASSWORD"
+  echo 'export DOCKER_REPO=jchancehud/libstorj' >> $BASH_ENV
 
 alpine_master: &AlpineMaster |
   cd alpine

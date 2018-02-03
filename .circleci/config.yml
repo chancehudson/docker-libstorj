@@ -5,21 +5,26 @@ boot: &Boot |
   export DOCKER_REPO=jchancehud/libstorj
 
 alpine_master: &AlpineMaster |
+  *Boot
   cd alpine
   docker build . -t $DOCKER_REPO:alpine
   docker push $DOCKER_REPO:alpine
 ubuntu_master: &UbuntuMaster |
+  *Boot
   cd ubuntu
   docker build . -t $DOCKER_REPO:ubuntu
   docker push $DOCKER_REPO:ubuntu
+  # Tag latest off of ubuntu
   docker tag $DOCKER_REPO:ubuntu $DOCKER_REPO:latest
   docker push $DOCKER_REPO:latest
 
 alpine_nonmaster: &AlpineNonmaster |
+  *Boot
   cd alpine
   docker build . -t $DOCKER_REPO:alpine-$CIRCLE_BRANCH
   docker push $DOCKER_REPO:alpine-$CIRCLE_BRANCH
 ubuntu_nonmaster: &UbuntuNonmaster |
+  *Boot
   cd ubuntu
   docker build . -t $DOCKER_REPO:ubuntu-$CIRCLE_BRANCH
   docker push $DOCKER_REPO:ubuntu-$CIRCLE_BRANCH
@@ -31,14 +36,12 @@ jobs:
     machine: true
     steps:
       - checkout
-      - run: *Boot
       - run: *AlpineMaster
       - run: *UbuntuMaster
   build_nonmaster:
     machine: true
     steps:
       - checkout
-      - run: *Boot
       - run: *AlpineNonmaster
       - run: *UbuntuNonmaster
 workflows:
